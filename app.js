@@ -28,9 +28,7 @@ app.use(passport.session());
 //------------------------
 
 
-app.post('/register', passport.authenticate('register'), function (req, res) {
-  res.json(req.user);
-});
+
 
 app.get('/beers', function (req, res) {
   Beer.find(function (error, beers) {
@@ -101,6 +99,36 @@ app.delete('/beers/:beer/reviews/:review', function(req, res, next) {
       }
     }
   });
+});
+
+var LocalStrategy = require('passport-local').Strategy;
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.use('register', new LocalStrategy(function (username, password, done) {
+  var user = {
+    username: username,
+    password: password
+  }
+
+  console.log(user);
+
+  done(null, user);
+}));
+
+app.post('/register', passport.authenticate('register'), function (req, res) {
+  res.json(req.user);
+});
+
+// send the current user back!
+app.get('/currentUser', function (req, res) {
+  res.send(req.user);
 });
 
 app.listen(8000);
