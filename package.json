@@ -1,7 +1,6 @@
 {
   "name": "beerlist-server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,10 +10,22 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.1",
-    "body-parser": "^1.15.0",
-    "bootstrap": "^3.3.6",
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
     "ejs": "^2.4.1",
     "express": "^4.14.0",
-    "mongoose": "^4.4.12"
-  }
+    "express-session": "^1.14.0",
+    "mongoose": "^4.5.9",
+    "passport": "^0.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elevationacademy/beerlist-pre-auth.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Elevationacademy/beerlist-pre-auth/issues"
+  },
+  "homepage": "https://github.com/Elevationacademy/beerlist-pre-auth#readme",
+  "description": ""
 }

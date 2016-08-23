@@ -4,6 +4,7 @@
   <h3>
     <span>{{beer.name}}</span>
   </h3>
+  <img style ="width:100px" ng-src="{{beer.image_url}}"/>
 </div>
 
 <div ng-repeat="review in beer.reviews track by $index">
