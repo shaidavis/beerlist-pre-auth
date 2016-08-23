@@ -18,5 +18,12 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
       controller: 'AuthCtrl'
     })
 
+    .state('login', {
+      url: '/login',
+      templateUrl: '/templates/login.html',
+      controller: 'AuthCtrl'
+    })
+
+
   $urlRouterProvider.otherwise('home');
 }]);

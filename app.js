@@ -104,10 +104,20 @@ app.delete('/beers/:beer/reviews/:review', function(req, res, next) {
 var LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser(function (user, done) {
+  user = {
+    username: user.username,
+    _id: user._id
+  };
+
   done(null, user);
 });
 
 passport.deserializeUser(function (user, done) {
+  user = {
+    username: user.username,
+    _id: user._id
+  };
+
   done(null, user);
 });
 
@@ -147,6 +157,31 @@ passport.use('register', new LocalStrategy(function (username, password, done) {
   });
 }));
 
+
+//login instance of LocalStrategy
+passport.use('login', new LocalStrategy(function (username, password, done) {
+  User.findOne({ 'username': username}, function (err, user) {
+    // In case of any error return
+    if (err) {
+      console.log('Error in Login: ' + err);
+      return done(err);
+    }
+
+    // already exists
+    if (!user) {
+      console.log("User not found");
+      return done(null, false);
+    }
+
+    if (password !== user.password) {
+    console.log("Incorrect Password");
+    return done(null, false);
+    }
+    console.log("Successful login")
+    return done(null, user);
+  });
+}));
+
 app.post('/register', passport.authenticate('register'), function (req, res) {
   res.json(req.user);
 });
@@ -154,6 +189,20 @@ app.post('/register', passport.authenticate('register'), function (req, res) {
 // send the current user back!
 app.get('/currentUser', function (req, res) {
   res.send(req.user);
+});
+
+// login route
+app.post('/login', passport.authenticate('login'), function (req, res) {
+  res.json(req.user)
+  // res.redirect('/home')
+  // failureFlash: true 
+});
+
+//logout route
+app.get('/logout', function (req, res) {
+  console.log("logout activated")
+  req.logout();
+  res.redirect('/');
 });
 
 app.listen(8000);
