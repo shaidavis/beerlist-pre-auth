@@ -1,9 +1,9 @@
-app.controller('AuthCtrl', ['$scope', 'auth', function($scope, auth){
+app.controller('AuthCtrl', ['$scope', '$state', 'auth', function($scope, $state, auth){
   
-
   $scope.register = function () {
-    auth.register($scope.user);
-  };
-
+    auth.register($scope.user).then(function(){
+      $state.go('home');
+    });
   
+  };
 }]);
